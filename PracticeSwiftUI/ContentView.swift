@@ -7,8 +7,31 @@ struct ContentView: View {
     @State private var feedText = ""
     @State private var waterText = ""
     
+    private let categories = ["로맨스", "액션", "판타지", "호러", "코미디", "드라마"]
+    
+    @State private var selectItemText = ""
+    
     var body: some View {
         VStack {
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(categories, id: \.self) { item in
+                        Button {
+                            selectItemText = item
+                        } label: {
+                            Text(item)
+                        }
+                        .padding()
+                        .background(.green)
+
+                    }
+                }
+            }
+            
+            
+            Text(selectItemText)
+           
+            
             HStack {
                 Text("밥알: \(foodCount)개")
                 Text("물방울: \(waterCount)개")
