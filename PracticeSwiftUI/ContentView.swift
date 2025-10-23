@@ -11,14 +11,25 @@ struct ContentView: View {
     @State private var foodCount = 0
     @State private var waterCount = 0
     
+    @State private var feedText = ""
+    @State private var waterText = ""
+    
     var body: some View {
         VStack {
             HStack {
                 Text("밥알: \(foodCount)개")
                 Text("물방울: \(waterCount)개")
             }
-            CustomButton(title: "밥먹기", count: $foodCount)
-            CustomButton(title: "물먹기", count: $waterCount)
+            HStack {
+                TextField("밥알 갯수", text: $feedText)
+                CustomButton(title: "밥먹기", count: $foodCount)
+            }
+            .padding(.horizontal, 60)
+            HStack {
+                TextField("물방울 갯수", text: $waterText)
+                CustomButton(title: "물먹기", count: $waterCount)
+            }
+            .padding(.horizontal, 60)
         }
     }
 }
