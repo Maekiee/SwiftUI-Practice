@@ -16,17 +16,25 @@ struct ContentView: View {
             
             HStack {
                 TextField("밥알 갯수", text: $feedText)
-                CustomButton(title: "밥먹기") {
-                    foodIncreasae()
-                }
+                CountingButton(
+                    title: "밥먹기",
+                    totalCount: $foodCount,
+                    inputText: $feedText)
+//                CustomButton(title: "밥먹기") {
+//                    foodIncreasae()
+//                }
             }
             .padding(.horizontal, 60)
             
             HStack {
                 TextField("물방울 갯수", text: $waterText)
-                CustomButton(title: "물먹기") {
-                    waterIncreasae()
-                }
+                CountingButton(
+                    title: "물먹기",
+                    totalCount: $waterCount,
+                    inputText: $waterText)
+//                CustomButton(title: "물먹기") {
+//                    waterIncreasae()
+//                }
             }
             .padding(.horizontal, 60)
         }
@@ -51,9 +59,29 @@ struct ContentView: View {
     }
 }
 
+struct CountingButton: View {
+    var title: String
+    
+    @Binding var totalCount: Int
+    @Binding var inputText: String
+    
+    var body: some View {
+        Button(title) {
+            if let amount = Int(inputText) {
+                totalCount += amount
+            } else {
+                totalCount += 1
+            }
+            inputText = ""
+        }
+        .padding()
+        .border(.gray, width: 1)
+        
+    }
+}
+
 struct CustomButton: View {
     var title: String
-//    @Binding var count: String
     let action: () -> Void
     
     var body: some View {
@@ -64,7 +92,6 @@ struct CustomButton: View {
         .border(.gray, width: 1)
         
     }
-    
 }
 
 #Preview {
